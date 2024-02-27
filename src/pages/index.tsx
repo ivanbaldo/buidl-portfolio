@@ -7,7 +7,7 @@ import { useNFTCollectibles } from "@/lib/hooks/useNFTCollectibles";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { profile } from "@/data/profile";
 import { ConnectKitButton } from "connectkit";
-import { SendTransaction } from "@/components/SendTransaction";
+import { SendTransaction, ReadContract } from "@/components/SendTransaction";
 
 function LinkCard({
   href,
@@ -104,6 +104,7 @@ const Page: React.FC = () => {
                 <TabsTrigger value="nfts">NFTs</TabsTrigger>
                 <TabsTrigger value="projects">Projects</TabsTrigger>
                 <TabsTrigger value="send">Donate</TabsTrigger>
+                <TabsTrigger value="testReadContract">Test Read Contract</TabsTrigger>
               </TabsList>
               <TabsContent
                 value="links"
@@ -153,6 +154,9 @@ const Page: React.FC = () => {
               </TabsContent>
               <TabsContent value="send">
                 <SendTransaction />
+              </TabsContent>
+              <TabsContent value="testReadContract">
+                <ReadContract />
               </TabsContent>
             </Tabs>
           </div>

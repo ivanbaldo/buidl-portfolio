@@ -1,7 +1,8 @@
 import * as React from 'react'
-import { useSendTransaction } from 'wagmi' 
+import { useSendTransaction, useReadContract } from 'wagmi' 
 import { parseEther } from 'viem' 
- 
+import { readContracts } from '@wagmi/core'
+
 export function SendTransaction() {
   const { data: hash, sendTransaction, isPending} = useSendTransaction() 
 
@@ -13,6 +14,7 @@ export function SendTransaction() {
   } 
 
   return (
+
     <form onSubmit={submit} className="flex flex-col items-center justify-center space-y-4">
       <h1 className="text-2xl font-bold">Buy me a coffee!</h1>
       <input name="value" placeholder="0.05 ETH" required className="p-2 border border-gray-300 rounded" />
@@ -21,5 +23,69 @@ export function SendTransaction() {
       </button>
       {hash && <div className="text-gray-500">Transaction Hash: {hash}</div>}
     </form>
+  )
+}
+
+
+const NFT_ABI = [
+	{
+		"inputs": [],
+		"name": "buy",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_trait",
+				"type": "string"
+			}
+		],
+		"name": "mint",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	}
+] as const;
+
+const nftContractConfig = {
+  address: process.env.NEXT_PUBLIC_NFT_ADDRESS as '0x$(string)',
+  abi: NFT_ABI
+} as const;
+
+export function ReadContract() {
+  const { data: balance } = useReadContract({
+    ...nftContractConfig,
+    functionName: 'balanceOf',
+    args: ['0x936ef6ecBb158193ef38Bfb21907aeF8037494e4'],
+  })
+
+  return (
+    <div>Balance: {balance?.toString()}</div>
   )
 }
