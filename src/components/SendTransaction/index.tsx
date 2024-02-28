@@ -86,6 +86,6 @@ export function ReadContract() {
   })
 
   return (
-    <div>Balance: {balance?.toString()}</div>
+    <div>Balance: {''/*FIXME: balance?.toString()*/}</div>
   )
 }
