@@ -1,7 +1,8 @@
 import "@/styles/globals.css";
 import { WagmiProvider, createConfig, http } from "wagmi";
 //import { mainnet } from "wagmi/chains";
-import { arbitrumSepolia } from "wagmi/chains";
+//import { arbitrumSepolia } from "wagmi/chains";
+import { polygonMumbai } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import { ThemeProvider } from "@/components/themes";
@@ -11,15 +12,19 @@ const config = createConfig(
   getDefaultConfig({
     // Your dApps chains
     //chains: [mainnet],
-    chains: [arbitrumSepolia],
+    //chains: [arbitrumSepolia],
+    chains: [polygonMumbai],
     transports: {
       // RPC URL for each chain
       //[mainnet.id]: http(
       //  `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_MAINNET}`,
-      [arbitrumSepolia.id]: http(
-          `https://arbitrum-sepolia.blockpi.network/v1/rpc/public`,
-      ),
-    },
+      //[arbitrumSepolia.id]: http(
+      //  `https://arbitrum-sepolia.blockpi.network/v1/rpc/public`,
+      //),
+      [polygonMumbai.id]: http(
+        `https://polygon-mumbai-pokt.nodies.app`,
+    ),
+  },
 
     // Required API Keys
     walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || '',
@@ -48,10 +53,10 @@ const queryClient = new QueryClient();
           enableSystem
           disableTransitionOnChange
         >
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
         </ThemeProvider>
         </ConnectKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
-  );
-};
+  )
+}
