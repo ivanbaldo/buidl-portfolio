@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { profile } from "@/data/profile";
 import { ConnectKitButton } from "connectkit";
 import { SendTransaction, ReadContract } from "@/components/SendTransaction";
+import { MintNFT } from "@/services/NFTMinter";
 
 function LinkCard({
   href,
@@ -42,7 +43,7 @@ function LinkCard({
         </h2>
       </div>
     </a>
-  );
+  )
 }
 
 const Page: React.FC = () => {
@@ -105,6 +106,7 @@ const Page: React.FC = () => {
                 <TabsTrigger value="projects">Projects</TabsTrigger>
                 <TabsTrigger value="send">Donate</TabsTrigger>
                 <TabsTrigger value="testReadContract">Test Read Contract</TabsTrigger>
+                <TabsTrigger value="testNFTMinter">Test NFT Minter</TabsTrigger>
               </TabsList>
               <TabsContent
                 value="links"
@@ -158,12 +160,15 @@ const Page: React.FC = () => {
               <TabsContent value="testReadContract">
                 <ReadContract />
               </TabsContent>
+              <TabsContent value="testNFTMinter">
+                <MintNFT />
+              </TabsContent>
             </Tabs>
           </div>
         </FadeIn>
       </Wrapper>
     </main>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page
